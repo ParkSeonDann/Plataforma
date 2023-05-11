@@ -24,10 +24,14 @@ def rf_cliente(request):
          return JSONResponse(serializer.data)
 
     elif request.method == 'POST':
+         print("******************",request)
          data = JSONParser().parse(request)
+         print("******************data:",data)
          cliente = ClienteSerializer(data=data)
+         print("******************cliente:",data)
          if cliente.is_valid():
             cliente.save()
+            ##code para enviar data el server
             return JSONResponse(cliente.data, status=201)
          
 @csrf_exempt
