@@ -7,3 +7,9 @@ class ClienteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cliente
         fields = ('rut_cli', 'nom_cli','app_cli','raz_sol','num_cel','id_localizacion')
+
+
+class ProveedorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Proveedor
+        fields = ('id_prov', 'nom_prov','fecha_ini_contrato','id_prod')

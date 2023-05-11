@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
-from .serializers import ClienteSerializer
+from .serializers import *
 from .models import *
 
 
@@ -55,3 +55,44 @@ def rf_cliente_pk(request,rut_cli):
         
 
     return JSONResponse(cliente.errors, status=400) 
+
+
+@csrf_exempt
+def rf_proveedor(request):
+    if request.method == 'GET':
+         proveedor = proveedor.objects.all()
+         serializer = ProveedorSerializer(proveedor, many=True)
+         return JSONResponse(serializer.data)
+
+    elif request.method == 'POST':
+         data = JSONParser().parse(request)
+         proveedor = ProveedorSerializer(data=data)
+         if proveedor.is_valid():
+            proveedor.save()
+            return JSONResponse(proveedor.data, status=201)
+         
+@csrf_exempt
+def rf_proveedor_pk(request,rut_cli):
+    try:
+        proveedor = Proveedor.objects.get(pk=rut_cli)
+    except Proveedor.DoesNotExist:
+        return HttpResponse(status=408)
+
+    ##   Ya lei el registros
+    if request.method == 'GET':
+        proveedor = ProveedorSerializer(proveedor)
+        return JSONResponse(proveedor.data)
+
+    elif request.method == 'PUT':
+        data = JSONParser().parse(request)
+        proveedor = ProveedorSerializer(proveedor, data=data)
+        if proveedor.is_valid():
+            proveedor.save()
+            return JSONResponse(proveedor.data)
+
+    elif request.method == 'DELETE':
+        proveedor.delete()
+        return HttpResponse(status=204)
+        
+
+    return JSONResponse(proveedor.errors, status=400)
