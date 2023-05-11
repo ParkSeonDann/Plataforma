@@ -8,48 +8,48 @@ class Color(models.Model):
 
 class Pais(models.Model): 
     id_pais  = models.IntegerField(3, primary_key=True)
-    nom_pais = models.CharField(max_length=15)
+    nom_pais = models.CharField(null=True, max_length=15)
 
 class Region(models.Model): 
     id_region  = models.IntegerField(3, primary_key=True)
-    nom_region = models.CharField(max_length=15)
+    nom_region = models.CharField(null=True, max_length=15)
     id_pais    = models.ForeignKey(Pais, null=True, on_delete=models.CASCADE)
 
 class Provincia(models.Model): 
     id_prov   = models.IntegerField(3, primary_key=True)
-    nom_prov  = models.CharField(max_length=15)
+    nom_prov  = models.CharField(null=True, max_length=15)
     id_region = models.ForeignKey(Region, null=True, on_delete=models.CASCADE)
 
 class Comuna(models.Model): 
     id_com  = models.IntegerField(3, primary_key=True ,)
-    nom_com = models.CharField(max_length=15)
+    nom_com = models.CharField(null=True, max_length=15)
     id_prov = models.ForeignKey(Provincia, null=True, on_delete=models.CASCADE)
 
 class Localizacion(models.Model): 
     id_localizacion = models.IntegerField(3, primary_key=True)
-    direccion       = models.CharField(max_length=50)
-    cod_postal      = models.CharField(max_length=15)
+    direccion       = models.CharField(null=True, max_length=50)
+    cod_postal      = models.CharField(null=True, max_length=15)
     id_com          = models.ForeignKey(Comuna, null=True, on_delete=models.CASCADE)
 
 class Cliente(models.Model): 
     rut_cli         = models.IntegerField(10, primary_key=True)
-    nom_cli         = models.CharField(max_length=30)
-    app_cli         = models.CharField(max_length=30)
-    raz_sol         = models.CharField(max_length=30)
+    nom_cli         = models.CharField(null=True, max_length=30)
+    app_cli         = models.CharField(null=True, max_length=30)
+    raz_sol         = models.CharField(null=True, max_length=30)
     num_cel         = models.IntegerField(9)
     id_localizacion = models.ForeignKey(Localizacion, null=True, on_delete=models.CASCADE)
 
 class Tipo_pago(models.Model): 
     id_tipo_pago  = models.IntegerField(2, primary_key=True)
-    nom_tipo_pago = models.CharField(max_length=30)
+    nom_tipo_pago = models.CharField(null=True, max_length=30)
 
 class Temporada(models.Model): 
     id_temp   = models.IntegerField(2, primary_key=True)
-    temporada = models.CharField(max_length=20)
+    temporada = models.CharField(null=True, max_length=20)
 
 class Especie(models.Model): 
     id_esp  = models.IntegerField(3, primary_key=True)
-    nom_esp = models.CharField(max_length=15)
+    nom_esp = models.CharField(null=True, max_length=15)
 
 class TipoProducto(models.Model): 
     id_tipo        = models.IntegerField(3, primary_key=True)
@@ -57,7 +57,7 @@ class TipoProducto(models.Model):
 
 class Planta(models.Model): 
     id_planta  = models.IntegerField(3, primary_key=True)
-    nom_planta = models.CharField(max_length=20)
+    nom_planta = models.CharField(null=True, max_length=20)
     precio     = models.IntegerField(6)
     id_color   = models.ForeignKey(Color, null=True, on_delete=models.CASCADE)
     id_temp    = models.ForeignKey(Temporada, null=True, on_delete=models.CASCADE)
@@ -72,47 +72,47 @@ class Producto(models.Model):
 
 class Proveedor(models.Model): 
     id_prov            = models.IntegerField(3, primary_key=True)
-    nom_prov           = models.CharField(max_length=20)
+    nom_prov           = models.CharField(null=True, max_length=20)
     fecha_ini_contrato = models.DateField
     id_prod            = models.ForeignKey(Producto, null=True, on_delete=models.CASCADE)          ####
 
 class Macetero(models.Model): 
     id_macetero   = models.IntegerField(3, primary_key=True)
-    tipo_macetero = models.CharField(max_length=15)
-    tamanno       = models.CharField(max_length=20)
+    tipo_macetero = models.CharField(null=True, max_length=15)
+    tamanno       = models.CharField(null=True, max_length=20)
     precio        = models.IntegerField(6)
     id_color      = models.ForeignKey(Color, null=True, on_delete=models.CASCADE)
 
 class TipoFer(models.Model): 
     id_tipo_Fer    = models.IntegerField(3, primary_key=True)
-    tipo_fer       = models.CharField(max_length=30)
-    especificacion = models.CharField(max_length=200)
+    tipo_fer       = models.CharField(null=True, max_length=30)
+    especificacion = models.CharField(null=True, max_length=200)
     precio         = models.IntegerField(6)
 
 class Fertilizante(models.Model): 
     id_fer   = models.IntegerField(3, primary_key=True)
-    nom_fer  = models.CharField(max_length=20)
+    nom_fer  = models.CharField(null=True, max_length=20)
     Tipo_fer = models.ForeignKey(TipoFer, null=True, on_delete=models.CASCADE)
 
 class Sucursal(models.Model): 
     id_sucursal     = models.IntegerField(3, primary_key=True)
-    nom_sucursal    = models.CharField(max_length=20)
-    direccion       = models.CharField(max_length=20)
+    nom_sucursal    = models.CharField(null=True, max_length=20)
+    direccion       = models.CharField(null=True, max_length=20)
     id_localizacion = models.ForeignKey(Localizacion, null=True, on_delete=models.CASCADE)
 
 class Cargo(models.Model): 
     id_cargo    = models.IntegerField(3, primary_key=True)
-    nom_cargo   = models.CharField(max_length=30)
+    nom_cargo   = models.CharField(null=True, max_length=30)
     min_salario = models.IntegerField(4)
     max_salario = models.IntegerField(7)
 
 class Empleado(models.Model): 
     id_emp             = models.IntegerField(10, primary_key=True)
-    rut                = models.CharField(max_length=10)
-    nom                = models.CharField(max_length=30)
-    app                = models.CharField(max_length=30)
-    apm                = models.CharField(max_length=30)
-    num_celu           = models.CharField(max_length=12)
+    rut                = models.CharField(null=True, max_length=10)
+    nom                = models.CharField(null=True, max_length=30)
+    app                = models.CharField(null=True, max_length=30)
+    apm                = models.CharField(null=True, max_length=30)
+    num_celu           = models.CharField(null=True, max_length=12)
     salario            = models.IntegerField(7)
     fecha_ini_contrato = models.DateField
     id_sucursal        = models.ForeignKey(Sucursal, null=True, on_delete=models.CASCADE)
@@ -122,7 +122,7 @@ class Empleado(models.Model):
 class Espacio_Bodega(models.Model): 
     id_espacio     = models.IntegerField(3, primary_key=True)
     fila           = models.IntegerField(7)
-    columna        = models.CharField(max_length=7)
+    columna        = models.CharField(null=True, max_length=7)
     stock          = models.IntegerField(7)
     especificacion = models.CharField(max_length=200, null=True)
     id_prod        = models.ForeignKey(Producto, null=True, on_delete=models.CASCADE)

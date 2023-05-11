@@ -6,4 +6,4 @@ from .models import *
 class ClienteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cliente
-        fields = ('rut_cli', 'nom_cli','app_cli')
+        fields = ('rut_cli', 'nom_cli','app_cli','raz_sol','num_cel','id_localizacion')
