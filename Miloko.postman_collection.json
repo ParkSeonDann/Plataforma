@@ -1,0 +1,61 @@
+{
+	"info": {
+		"_postman_id": "ba7d7cf2-f6b8-40a7-95bb-e084be176d43",
+		"name": "Miloko",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Ingreso cliente",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"rut_cli\": \"{{runcli}}\",\r\n    \"nom_cli\": \"{{nomcli}}\",\r\n    \"app_cli\": \"{{appcli}}\",\r\n    \"raz_sol\": \"{{razsol}}\",\r\n    \"num_cel\": \"{{numcel}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/cliente/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"cliente",
+						""
+					]
+				},
+				"description": "Mi loko esto se usa pa ingresar cliente mi loko wuau"
+			},
+			"response": []
+		},
+		{
+			"name": "Solicitar cliente",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
