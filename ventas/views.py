@@ -15,10 +15,53 @@ class JSONResponse(HttpResponse):
         content = JSONRenderer().render(data)
         kwargs['content_type'] = 'application/json'
         super(JSONResponse, self).__init__(content, **kwargs)
+                                                                    # RESTFULL COLOR
 
-def mostrar_carrito(request):
-    return render(request,'carro-compras.html')
+@csrf_exempt
+def rf_color(request):
+    if request.method == 'GET':
+         color = Color.objects.all()
+         serializer = ColorSerializer(color, many=True)
+         return JSONResponse(serializer.data)
+    
+    elif request.method == 'POST':
+         print("******************",request)
+         data = JSONParser().parse(request)
+         print("******************data:",data)
+         color = ColorSerializer(data=data)
+         print("******************color:",data)
+         if color.is_valid():
+            color.save()
+            ##code para enviar data el server
+            return JSONResponse(color.data, status=201)
+    
+@csrf_exempt
+def rf_color_pk(request,id_color):
+    try:
+        color = Color.objects.get(pk=id_color)
+    except Color.DoesNotExist:
+        return HttpResponse(status=408)
 
+    ##   Ya lei el registros
+    if request.method == 'GET':
+        color = ColorSerializer(color)
+        return JSONResponse(color.data)
+
+    elif request.method == 'PUT':
+        data = JSONParser().parse(request)
+        color = ColorSerializer(color, data=data)
+        if color.is_valid():
+            color.save()
+            return JSONResponse(color.data)
+
+    elif request.method == 'DELETE':
+        color.delete()
+        return HttpResponse(status=204)
+        
+
+    return JSONResponse(color.errors, status=400) 
+
+                                                                    # RESTFULL CLIENTE
 @csrf_exempt
 def rf_cliente(request):
     if request.method == 'GET':
@@ -60,10 +103,9 @@ def rf_cliente_pk(request,rut_cli):
         cliente.delete()
         return HttpResponse(status=204)
         
-
     return JSONResponse(cliente.errors, status=400) 
 
-
+                                                                    # RESTFULL PROVEEDOR
 @csrf_exempt
 def rf_proveedor(request):
     if request.method == 'GET':
@@ -101,10 +143,170 @@ def rf_proveedor_pk(request,rut_cli):
         proveedor.delete()
         return HttpResponse(status=204)
         
-
     return JSONResponse(proveedor.errors, status=400)
 
+                                                                    # RESTFULL TIPO PRODUCTO
 
+@csrf_exempt
+def rf_tipoProducto(request):
+    if request.method == 'GET':
+         tp = TipoProducto.objects.all()
+         serializer = TipoProductoSerializer(tp, many=True)
+         return JSONResponse(serializer.data)
+
+    elif request.method == 'POST':
+         data = JSONParser().parse(request)
+         tp = TipoProductoSerializer(data=data)
+         if tp.is_valid():
+            tp.save()
+            return JSONResponse(tp.data, status=201)
+         
+@csrf_exempt
+def rf_tipoProducto_pk(request,id_tipo):
+    try:
+        tp = TipoProducto.objects.get(pk=id_tipo)
+    except TipoProducto.DoesNotExist:
+        return HttpResponse(status=408)
+
+    ##   Ya lei el registros
+    if request.method == 'GET':
+        tp = TipoProductoSerializer(tp)
+        return JSONResponse(tp.data)
+
+    elif request.method == 'PUT':
+        data = JSONParser().parse(request)
+        tp = TipoProductoSerializer(tp, data=data)
+        if tp.is_valid():
+            tp.save()
+            return JSONResponse(tp.data)
+
+    elif request.method == 'DELETE':
+        tp.delete()
+        return HttpResponse(status=204)
+        
+    return JSONResponse(tp.errors, status=400)  
+                                                                    # RESTFULL PRODUCTO
+@csrf_exempt
+def rf_producto(request):
+    if request.method == 'GET':
+         p = Producto.objects.all()
+         serializer = ProductoSerializer(p, many=True)
+         return JSONResponse(serializer.data)
+
+    elif request.method == 'POST':
+         data = JSONParser().parse(request)
+         p = ProductoSerializer(data=data)
+         if p.is_valid():
+            p.save()
+            return JSONResponse(p.data, status=201)
+         
+@csrf_exempt
+def rf_producto_pk(request,id_prod):
+    try:
+        p = Producto.objects.get(pk=id_prod)
+    except Producto.DoesNotExist:
+        return HttpResponse(status=408)
+
+    ##   Ya lei el registros
+    if request.method == 'GET':
+        p = ProductoSerializer(p)
+        return JSONResponse(p.data)
+
+    elif request.method == 'PUT':
+        data = JSONParser().parse(request)
+        p = ProductoSerializer(p, data=data)
+        if p.is_valid():
+            p.save()
+            return JSONResponse(p.data)
+
+    elif request.method == 'DELETE':
+        p.delete()
+        return HttpResponse(status=204)
+        
+    return JSONResponse(p.errors, status=400) 
+
+                                                                    # RESTFULL sucursal 
+
+@csrf_exempt
+def rf_sucursal(request):
+    if request.method == 'GET':
+         sucursal = sucursal.objects.all()
+         serializer = SucursalSerializer(sucursal, many=True)
+         return JSONResponse(serializer.data)
+
+    elif request.method == 'POST':
+         data = JSONParser().parse(request)
+         sucursal = SucursalSerializer(data=data)
+         if sucursal.is_valid():
+            sucursal.save()
+            return JSONResponse(sucursal.data, status=201)
+         
+@csrf_exempt
+def rf_sucursal_pk(request,id_sucursal):
+    try:
+        sucursal = Sucursal.objects.get(pk=id_sucursal)
+    except Sucursal.DoesNotExist:
+        return Sucursal(status=408)
+
+    ##   Ya lei el registros
+    if request.method == 'GET':
+        sucursal = SucursalSerializer(sucursal)
+        return JSONResponse(sucursal.data)
+
+    elif request.method == 'PUT':
+        data = JSONParser().parse(request)
+        sucursal = SucursalSerializer(sucursal, data=data)
+        if sucursal.is_valid():
+            sucursal.save()
+            return JSONResponse(sucursal.data)
+
+    elif request.method == 'DELETE':
+        sucursal.delete()
+        return HttpResponse(status=204)
+        
+    return JSONResponse(sucursal.errors, status=400)                           
+
+                                                                    # RESTFULL sucursal 
+
+@csrf_exempt
+def rf_Empleado(request):
+    if request.method == 'GET':
+         empleado = empleado.objects.all()
+         serializer = EmpleadoSerializer(empleado, many=True)
+         return JSONResponse(serializer.data)
+
+    elif request.method == 'POST':
+         data = JSONParser().parse(request)
+         empleado = EmpleadoSerializer(data=data)
+         if empleado.is_valid():
+            empleado.save()
+            return JSONResponse(empleado.data, status=201)
+         
+@csrf_exempt
+def rf_Empleado_pk(request,id_emp):
+    try:
+        empleado = Empleado.objects.get(pk=id_emp)
+    except Sucursal.DoesNotExist:
+        return Sucursal(status=408)
+
+    ##   Ya lei el registros
+    if request.method == 'GET':
+        empleado = EmpleadoSerializer(empleado)
+        return JSONResponse(empleado.data)
+
+    elif request.method == 'PUT':
+        data = JSONParser().parse(request)
+        empleado = EmpleadoSerializer(empleado, data=data)
+        if empleado.is_valid():
+            empleado.save()
+            return JSONResponse(empleado.data)
+
+    elif request.method == 'DELETE':
+        empleado.delete()
+        return HttpResponse(status=204)
+        
+    return JSONResponse(empleado.errors, status=400)  
+                                                           
 ### Soap
 
 from django.views.decorators.csrf import csrf_exempt

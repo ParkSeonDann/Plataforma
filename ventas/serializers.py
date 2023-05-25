@@ -13,3 +13,28 @@ class ProveedorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Proveedor
         fields = ('id_prov', 'nom_prov','fecha_ini_contrato','id_prod')
+
+class ColorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Color
+        fields = ('id_color', 'nom_color')
+
+class TipoProductoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TipoProducto
+        fields = ('id_tipo', 'especificacion')
+
+class ProductoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Producto
+        fields = ('id_prov', 'nom_prov','fecha_ini_contrato','id_tipo')
+
+class SucursalSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Sucursal
+        fields = ('id_sucursal', 'nom_sucursal','direccion','id_localizacion')
+
+class EmpleadoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Empleado
+        fields = ('id_emp', 'rut','nom','app', 'apm','num_celu', 'salario','fecha_ini_contrato', 'id_sucursal','id_localizacion','id_cargo')
