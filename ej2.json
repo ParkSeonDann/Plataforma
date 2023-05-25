@@ -1,8 +1,7 @@
-"Cliente":{
+{
         "rut_cli": "12346789",
         "nom_cli": "pedro",
         "app_cli": "peres",
         "raz_sol": "none",
-        "num_cel": "9874123",
-        "id_localalizacion": "001"  
+        "num_cel": "9874123" 
 }

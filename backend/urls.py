@@ -3,6 +3,7 @@ from django.urls import path
 from ventas import views
 
 urlpatterns = [
+    path('admin/', admin.site.urls),
     path('cliente/', views.rf_cliente),
     path('cliente/<int:rut_cli>', views.rf_cliente_pk),
     path('soap_service/', views.my_soap_application),

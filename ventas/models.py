@@ -6,6 +6,9 @@ class Color(models.Model):
     id_color  = models.IntegerField(3,primary_key=True)
     nom_color = models.CharField(max_length=30, null=True)
 
+new_color = Color(id_color=1, nom_color='Verde')
+new_color.save()
+
 class Pais(models.Model): 
     id_pais  = models.IntegerField(3, primary_key=True)
     nom_pais = models.CharField(null=True, max_length=15)
@@ -199,8 +202,6 @@ class Camion(models.Model):
     id_conduc     = models.ForeignKey(Conductor, null=True, on_delete=models.CASCADE)
     cantidad_prod = models.IntegerField(7, null=True)
     id_ruta       = models.ForeignKey(Localizacion, null=True, on_delete=models.CASCADE)
-
-
 
 
 
