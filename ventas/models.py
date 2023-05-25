@@ -9,6 +9,9 @@ class Color(models.Model):
 new_color = Color(id_color=1, nom_color='Verde')
 new_color.save()
 
+new_color = Color(id_color=2, nom_color='Azul')
+new_color.save()
+
 class Pais(models.Model): 
     id_pais  = models.IntegerField(3, primary_key=True)
     nom_pais = models.CharField(null=True, max_length=15)

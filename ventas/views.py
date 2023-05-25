@@ -16,6 +16,9 @@ class JSONResponse(HttpResponse):
         kwargs['content_type'] = 'application/json'
         super(JSONResponse, self).__init__(content, **kwargs)
 
+def mostrar_carrito(request):
+    return render(request,'carro-compras.html')
+
 @csrf_exempt
 def rf_cliente(request):
     if request.method == 'GET':
