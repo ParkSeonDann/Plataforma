@@ -340,6 +340,23 @@ django_soap_application = DjangoApplication(soap_app)
 my_soap_application = csrf_exempt(django_soap_application)
 
 
+def compra_view(request):
+    if request.method == 'POST':
+        producto_id = request.POST.get('producto')
+        cantidad = request.POST.get('cantidad')
+        
+        producto = Producto.objects.get(id=producto_id)
+        
+        # Realizar las operaciones necesarias para registrar la compra en la base de datos
+        compra = Compra(producto=producto, cantidad=cantidad)
+        compra.save()
+        
+        return redirect('compra_exitosa')  # Redirigir a una página de confirmación de compra exitosa
+    else:
+        productos = Producto.objects.all()
+        return render(request, 'compra.html', {'productos': productos})
+
+
 # pruebas Soap 222
 class SoapServiceFerreteria(ServiceBase):
     @rpc(Unicode(nillable=False), _returns=Unicode)
