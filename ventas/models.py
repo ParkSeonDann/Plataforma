@@ -171,7 +171,7 @@ class Guia_Despacho(models.Model): #guia despacho
     id_tipo_pago = models.ForeignKey(Tipo_pago, null=True, on_delete=models.CASCADE)
     rut_cli      = models.ForeignKey(Cliente, null=True, on_delete=models.CASCADE)
     total_pago   = models.IntegerField(8)
-    fecha        = models.DateField
+    fecha        = models.DateField()
     id_emp       = models.ForeignKey(Empleado, null=True, on_delete=models.CASCADE)
     id_sucursal  = models.ForeignKey(Sucursal, null=True, on_delete=models.CASCADE)
     
@@ -314,54 +314,3 @@ nueva_bodega3 = Bodega(id_prod=1,id_espacio=nuevo_espacio3,id_tipo=nuevo_tipo_pr
 nueva_bodega3.save()
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-### bodega😡                                      ###
-### sucursales😡                                    ###
-### cargo de empleados😡
-### id especie aparte
-### temporada en otra😡                         ###
-### color otra😡                                  ###
-### tipo fertilizante otra😡                        ###
-### cambiar tablas a de tipos a otras tablas y ahi especificar (eje: iluminacion automovil)😡         ###
-### trabajo cambiar a cargo😡
-### sacar his_trabajo /cambiar pk de rut a un cod y poner inicio de contrato y final😡
-### cambiar localizacion a comuna (siempre el menor en la tabla q tenga una foranea)😡               ###
-### tabla region lleva el id_pais😡                                                                   ###
-### una tabla de comuna 😡                                                                            ###
-###  poner los null true  :(
-###
-###
-###
