@@ -27,7 +27,7 @@ class TipoProductoSerializer(serializers.ModelSerializer):
 class ProductoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Producto
-        fields = ('id_prov', 'nom_prov','fecha_ini_contrato','id_tipo')
+        fields = ('id_prod', 'nom_prod','precio','cantidad_prod','id_tipo')
 
 class SucursalSerializer(serializers.ModelSerializer):
     class Meta:

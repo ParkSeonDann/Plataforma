@@ -1,0 +1,5 @@
+<form method="POST" action="{% url 'actualizar_stock' id_prod=producto.id_prod %}">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Actualizar Stock</button>
+</form>

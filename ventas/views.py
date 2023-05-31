@@ -5,6 +5,11 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
 from .serializers import *
 from .models import *
+from django.shortcuts import redirect
+from .forms import *
+from django.shortcuts import get_object_or_404
+from django.http import JsonResponse
+
 
 
 class JSONResponse(HttpResponse):
@@ -144,6 +149,67 @@ def rf_proveedor_pk(request,rut_cli):
         return HttpResponse(status=204)
         
     return JSONResponse(proveedor.errors, status=400)
+
+def carga_exitosa(request):
+    return render(request, 'carga_exitosa.html')
+
+def confirmacion_compra(request):
+    return render(request, 'confirmacion_compra.html')
+
+def actualizar_stock(request, id_prod):
+    producto = get_object_or_404(Producto, id_prod=id_prod)
+    
+    if request.method == 'POST':
+        form = ActualizarStockForm(request.POST)
+        if form.is_valid():
+            nuevo_stock = form.cleaned_data['nuevo_stock']
+            producto.cantidad_prod = nuevo_stock
+            producto.save()
+            return JsonResponse({'message': 'Stock actualizado correctamente.'})
+        else:
+            return JsonResponse({'message': 'Error en los datos del formulario.'}, status=400)
+    
+    form = ActualizarStockForm()
+    context = {
+        'form': form,
+        'producto': producto,
+    }
+    return render(request, 'actualizar_stock.html', context)
+
+def confirmacion_compra(request):
+    return render(request, 'confirmacion_compra.html')
+
+def crear_compra(request):
+    if request.method == 'POST':
+        form = CompraForm(request.POST)
+        if form.is_valid():
+            id_prod = request.POST.get('id_prod')
+            cantidad_comprada = form.cleaned_data['cantidad_prod']
+
+            # Obtener el producto
+            producto = Producto.objects.get(id_prod=id_prod)
+
+            # Verificar si la cantidad comprada es válida
+            if cantidad_comprada <= producto.cantidad_prod:
+                # Actualizar el stock del producto
+                producto.cantidad_prod -= cantidad_comprada
+                producto.save()
+
+                # Redirigir a la página de confirmación de compra o resumen de compra
+                return redirect('confirmacion_compra')
+            else:
+                # Manejar la situación cuando la cantidad comprada supera el stock disponible
+                error_message = 'La cantidad comprada supera el stock disponible.'
+                form.add_error('cantidad_prod', error_message)
+    else:
+        form = CompraForm()
+
+    context = {
+        'form': form,
+        'producto': Producto.objects.first()  # Agrega aquí la lógica para obtener el producto deseado
+    }
+    return render(request, 'crear_compra.html', context)
+
 
                                                                     # RESTFULL TIPO PRODUCTO
 
