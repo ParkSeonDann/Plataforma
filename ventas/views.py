@@ -183,8 +183,9 @@ def crear_compra(request):
     if request.method == 'POST':
         form = CompraForm(request.POST)
         if form.is_valid():
-            id_prod = request.POST.get('id_prod')
+            id_prod = form.cleaned_data['id_prod']
             cantidad_comprada = form.cleaned_data['cantidad_prod']
+            opcion_entrega = form.cleaned_data['opcion_entrega']
 
             # Obtener el producto
             producto = Producto.objects.get(id_prod=id_prod)
@@ -195,8 +196,19 @@ def crear_compra(request):
                 producto.cantidad_prod -= cantidad_comprada
                 producto.save()
 
-                # Redirigir a la página de confirmación de compra o resumen de compra
-                return redirect('confirmacion_compra')
+                # Realizar acciones según la opción de entrega seleccionada
+                if opcion_entrega == 'retiro':
+                    # Aquí puedes implementar la lógica para obtener las sucursales disponibles
+                    sucursales = Sucursal.objects.all()
+                    context = {
+                        'sucursales': sucursales,
+                        'producto': producto,
+                        'cantidad_comprada': cantidad_comprada
+                    }
+                    return render(request, 'seleccionar_sucursal.html', context)
+                else:
+                    # Redirigir a la página de confirmación de compra o resumen de compra
+                    return redirect('confirmacion_compra')
             else:
                 # Manejar la situación cuando la cantidad comprada supera el stock disponible
                 error_message = 'La cantidad comprada supera el stock disponible.'

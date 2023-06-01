@@ -1,0 +1,75 @@
+INSERT INTO ventas_color (id_color, nom_color) VALUES (1, 'verde');
+
+INSERT INTO ventas_pais (id_pais, nom_pais) VALUES (1, 'chile');
+
+INSERT INTO ventas_region (id_region, nom_region, id_pais_id) VALUES (1, 'magallanes', 1);
+INSERT INTO ventas_region (id_region, nom_region, id_pais_id) VALUES (2, 'valparaiso', 1);
+INSERT INTO ventas_region (id_region, nom_region, id_pais_id) VALUES (3, 'maule', 1);
+
+INSERT INTO ventas_provincia (id_prov, nom_prov, id_region_id) VALUES (1, 'tierra del fuego', 1);
+INSERT INTO ventas_provincia (id_prov, nom_prov, id_region_id) VALUES (2, 'san antonio', 2);
+INSERT INTO ventas_provincia (id_prov, nom_prov, id_region_id) VALUES (3, 'talca', 3);
+
+INSERT INTO ventas_comuna (id_com, nom_com, id_prov_id) VALUES (1, 'ushuaia', 1);
+INSERT INTO ventas_comuna (id_com, nom_com, id_prov_id) VALUES (2, 'cartagena', 2);
+INSERT INTO ventas_comuna (id_com, nom_com, id_prov_id) VALUES (3, 'san clemente', 3);
+
+INSERT INTO ventas_localizacion (id_localizacion, direccion, cod_postal, id_com_id) VALUES (1, 'calle 1', '12345', 1);
+INSERT INTO ventas_localizacion (id_localizacion, direccion, cod_postal, id_com_id) VALUES (2, 'calle 2', '23456', 2);
+INSERT INTO ventas_localizacion (id_localizacion, direccion, cod_postal, id_com_id) VALUES (3, 'calle 3', '34567', 3);
+
+INSERT INTO ventas_sucursal (id_sucursal, nom_sucursal, direccion, id_localizacion_id) VALUES (1, 'sucursal a', 'calle 123', 1);
+INSERT INTO ventas_sucursal (id_sucursal, nom_sucursal, direccion, id_localizacion_id) VALUES (2, 'sucursal b', 'calle 234', 2);
+INSERT INTO ventas_sucursal (id_sucursal, nom_sucursal, direccion, id_localizacion_id) VALUES (3, 'sucursal c', 'calle 567', 3);
+
+INSERT INTO ventas_cargo (id_cargo, nom_cargo, min_salario, max_salario) VALUES (1, 'gerente', 500000, 1000000);
+INSERT INTO ventas_cargo (id_cargo, nom_cargo, min_salario, max_salario) VALUES (2, 'jefe de area', 400000, 2000000);
+INSERT INTO ventas_cargo (id_cargo, nom_cargo, min_salario, max_salario) VALUES (3, 'ayudante', 500000, 1000000);
+
+INSERT INTO ventas_empleado (id_emp, rut, nom, app, apm, num_celu, salario, id_sucursal_id, id_localizacion_id, id_cargo_id) VALUES (1, '12345678-9', 'juan', 'pérez', 'gómez', '987654321', 500000, 1, 1, 1);
+INSERT INTO ventas_empleado (id_emp, rut, nom, app, apm, num_celu, salario, id_sucursal_id, id_localizacion_id, id_cargo_id) VALUES (2, '12312378-4', 'pedro', 'cantillana', 'alvaro', '123456789', 500000, 2, 2, 2);
+INSERT INTO ventas_empleado (id_emp, rut, nom, app, apm, num_celu, salario, id_sucursal_id, id_localizacion_id, id_cargo_id) VALUES (3, '12345665-1', 'almendra', 'henriquez', 'lucho', '345678912', 500000, 3, 3, 3);
+
+INSERT INTO ventas_tipoproducto (id_tipo, especificacion) VALUES (1, 'especificación del tipo de producto');
+
+INSERT INTO ventas_producto (id_prod, nom_prod, precio, cantidad_prod, id_color_id, id_tipo_id, opcion_entrega) VALUES (1, 'producto a', 1000, 10, 1, 1, 'retiro,despacho');
+
+INSERT INTO ventas_espacio_bodega (id_espacio, fila, columna, stock, especificacion, id_prod_id) VALUES (1, 1, 'a', 100, 'especificación del espacio', 1);
+INSERT INTO ventas_espacio_bodega (id_espacio, fila, columna, stock, especificacion, id_prod_id) VALUES (2, 1, 'b', 100, 'especificación del espacio', 1);
+INSERT INTO ventas_espacio_bodega (id_espacio, fila, columna, stock, especificacion, id_prod_id) VALUES (3, 1, 'c', 100, 'especificación del espacio', 1);
+
+INSERT INTO ventas_bodega (id_prod, id_espacio, id_tipo, id_com, id_localizacion) VALUES (1, 1, 1, 1, 1);
+INSERT INTO ventas_bodega (id_prod, id_espacio, id_tipo, id_com, id_localizacion) VALUES (1, 2, 1, 2, 2);
+INSERT INTO ventas_bodega (id_prod, id_espacio, id_tipo, id_com, id_localizacion) VALUES (1, 3, 1, 3, 3);
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------
+DELETE FROM ventas_bodega;
+
+DELETE FROM ventas_espacio_bodega;
+
+DELETE FROM ventas_producto;
+
+DELETE FROM ventas_tipoproducto;
+
+DELETE FROM ventas_empleado;
+
+DELETE FROM ventas_cargo;
+
+DELETE FROM ventas_sucursal;
+
+DELETE FROM ventas_localizacion;
+
+DELETE FROM ventas_comuna;
+
+DELETE FROM ventas_provincia;
+
+DELETE FROM ventas_region;
+
+DELETE FROM ventas_pais;
+
+DELETE FROM ventas_color;
+

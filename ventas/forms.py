@@ -10,6 +10,8 @@ class ActualizarStockForm(forms.Form):
         fields = ['id_prod','cantidad_prod'] """   
 
 class CompraForm(forms.ModelForm):
+    opcion_entrega = forms.ChoiceField(choices=[('despacho', 'Despacho'), ('retiro', 'Retiro')], widget=forms.RadioSelect)
+
     class Meta:
         model = Producto
-        fields = ['cantidad_prod']
+        fields = ['id_prod', 'cantidad_prod', 'opcion_entrega']
